@@ -1,0 +1,79 @@
+#pragma kernel UpdateBoids
+
+// The Boid data structure
+struct Boid
+{
+    float3 position;
+    float3 velocity;
+};
+
+RWStructuredBuffer<Boid> boids;
+
+// Simulation parameters
+float deltaTime;
+float3 bounds;
+float separationWeight;
+float alignmentWeight;
+float cohesionWeight;
+float maxSpeed;
+float neighborRadius;
+
+[numthreads(512, 1, 1)]
+void UpdateBoids(uint3 id : SV_DispatchThreadID)
+{
+    Boid currentBoid = boids[id.x];
+    float3 separation = float3(0, 0, 0);
+    float3 alignment = float3(0, 0, 0);
+    float3 cohesion = float3(0, 0, 0);
+    int neighborCount = 0;
+
+    for (uint i = 0; i < boids.Length; ++i)
+    {
+        if (i == id.x) continue;
+
+        Boid other = boids[i];
+        float3 delta = other.position - currentBoid.position;
+        float distance = length(delta);
+
+        if (distance < neighborRadius)
+        {
+            // Separation
+            separation -= delta / distance;
+
+            // Alignment
+            alignment += other.velocity;
+
+            // Cohesion
+            cohesion += other.position;
+
+            neighborCount++;
+        }
+    }
+
+    if (neighborCount > 0)
+    {
+        // Calculate average alignment and cohesion
+        alignment /= neighborCount;
+        cohesion /= neighborCount;
+
+        // Calculate cohesion steering
+        cohesion = (cohesion - currentBoid.position) * cohesionWeight;
+    }
+
+    // Normalize and apply weights
+    separation = normalize(separation) * separationWeight;
+    alignment = normalize(alignment) * alignmentWeight;
+
+    // Update velocity
+    currentBoid.velocity += separation + alignment + cohesion;
+    currentBoid.velocity = normalize(currentBoid.velocity) * maxSpeed;
+
+    // Update position
+    currentBoid.position += currentBoid.velocity * deltaTime;
+
+    // Wrap position around the simulation bounds
+    currentBoid.position = (currentBoid.position + bounds) % (bounds * 2) - bounds;
+
+    // Write back the updated Boid data
+    boids[id.x] = currentBoid;
+}
