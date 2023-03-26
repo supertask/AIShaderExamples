@@ -28,4 +28,5 @@ BTW, sample of gpu instancing shader is bellow.
 <Paste the sample code>
 ```
 
+![Boids](./doc/images/Boids.gif)
 
