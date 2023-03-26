@@ -39,12 +39,6 @@ public class BoidsController : MonoBehaviour
         // Set the buffer data and parameters
         boidBuffer.SetData(boidData);
         boidsComputeShader.SetBuffer(updateBoidsKernel, "boids", boidBuffer);
-        boidsComputeShader.SetInt("boidCount", boidCount);
-        boidsComputeShader.SetFloat("neighborRadius", neighborRadius);
-        boidsComputeShader.SetFloat("maxSpeed", maxSpeed);
-        boidsComputeShader.SetFloat("separationWeight", separationWeight);
-        boidsComputeShader.SetFloat("alignmentWeight", alignmentWeight);
-        boidsComputeShader.SetFloat("cohesionWeight", cohesionWeight);
 
         // Get the kernel index
         updateBoidsKernel = boidsComputeShader.FindKernel("UpdateBoids");
@@ -53,6 +47,12 @@ public class BoidsController : MonoBehaviour
     private void Update()
     {
         // Update the Boids using the compute shader
+        boidsComputeShader.SetInt("boidCount", boidCount);
+        boidsComputeShader.SetFloat("neighborRadius", neighborRadius);
+        boidsComputeShader.SetFloat("maxSpeed", maxSpeed);
+        boidsComputeShader.SetFloat("separationWeight", separationWeight);
+        boidsComputeShader.SetFloat("alignmentWeight", alignmentWeight);
+        boidsComputeShader.SetFloat("cohesionWeight", cohesionWeight);
         boidsComputeShader.SetFloat("deltaTime", Time.deltaTime);
         boidsComputeShader.SetVector("bounds", bounds);
         boidsComputeShader.Dispatch(updateBoidsKernel, boidCount / 512 + 1, 1, 1);

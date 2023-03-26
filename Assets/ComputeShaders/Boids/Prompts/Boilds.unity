@@ -156,13 +156,13 @@ MonoBehaviour:
   boidMaterial: {fileID: 2100000, guid: ebff00c35758cf241b8dbbdd96240ee2, type: 2}
   boidsComputeShader: {fileID: 7200000, guid: 27234e7cd1e8ca242be41393f08bd972, type: 3}
   boidCount: 1000
-  bounds: {x: 50, y: 50, z: 50}
+  bounds: {x: 70, y: 70, z: 70}
   neighborRadius: 10
   maxSpeed: 5
   separationWeight: 3
   alignmentWeight: 1
   cohesionWeight: 1
-  meshScale: 5
+  meshScale: 3
 --- !u!4 &71362439
 Transform:
   m_ObjectHideFlags: 0
