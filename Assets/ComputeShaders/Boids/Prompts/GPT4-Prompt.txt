@@ -1,8 +1,8 @@
-Write gpu instancing Boids with compute shader.
+Prompt1: Write gpu instancing Boids with compute shader.
 =========================================================================
-Continue
+Prompt2: Continue
 =========================================================================
-Write a gpu instancing shader for it by using boidBuffer.
+Prompt3  Write a gpu instancing shader for it by using boidBuffer.
 
 BTW, sample of gpu instancing shader is bellow.
 --------
