@@ -1,7 +1,10 @@
 # AIShaderExamples
 
+text-to-shader examples with ChatGPT GPT-4.
+
 
 ## Shader
+
 ### Dissolve
 
 ```
@@ -11,7 +14,10 @@ Prompt: Write a dissolve shader for Unity Editor
 ![DissolveByAI](./doc/images/DissolveByAI.gif)
 
 
+
 ## Compute Shader
+
+### Boids
 ```
 Prompt1: Write gpu instancing Boids with compute shader.
 =========================================================================
