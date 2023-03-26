@@ -1,6 +1,6 @@
 # AIShaderExamples
 
-text-to-shader examples with ChatGPT GPT-4.
+text-to-shader examples with ChatGPT GPT-4. Each example has prompt text and Unity scene. Please take a look.
 
 
 ## Shader
